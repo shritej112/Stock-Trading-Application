@@ -1,0 +1,29 @@
+<!-- Purpose: This is the search component that will be used to search for stock ticker symbols. -->
+<div class="container">
+    <div class="row justify-content-center">
+      <div class="col-md-6 mt-5">
+        <h1 class="text-center">STOCK SEARCH</h1>
+        <form class="form-inline">
+          <div class="form-group input-group  mr-sm-2 border border-3 border-primary rounded-pill col col-sm-4 mt-4">
+            <input id="searchBarInput" type="text" class="form-control border-0" placeholder="Enter stock ticker symbol" [formControl]="control" [matAutocomplete]="auto" oninput="this.value = this.value.toUpperCase()">
+            <mat-autocomplete #auto="matAutocomplete">
+                <mat-option *ngIf="stocksDataFetchingFlag">
+                  <mat-progress-spinner diameter="30" mode="indeterminate"></mat-progress-spinner>
+                </mat-option>
+                <mat-option *ngFor="let result of filteredResult | async" [value]="result.symbol" [routerLink]="['/search/', result.symbol]">
+                  {{result.symbol}} | {{result.description}}
+                </mat-option>
+            </mat-autocomplete>
+            <button type="submit" class="searchBarBtn" [routerLink]="['/search/', control.value]">
+              <img src="assets/images/search-solid.svg" alt="Search" class="btnImg" id="searchBtnImg">
+            </button>
+            <button type="reset" class="searchBarBtn" (click)="clearData()">
+              <img src="assets/images/times-solid.svg" alt="Clear" class="btnImg" id="clearBtnImg">
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  

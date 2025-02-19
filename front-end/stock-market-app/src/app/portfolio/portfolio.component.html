@@ -1,0 +1,43 @@
+<div class="container-wrapper">
+    <div class="container custom-container">
+
+      <!-- Logic to implement Alerts -->
+      <div class="row text-center">
+        <div *ngIf="buySuccessFlag" class="alert alert-success alert-dismissible" role="alert">
+          {{ stockSymbol }} bought successfully.
+          <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+        <div *ngIf="sellSuccessFlag" class="alert alert-danger alert-dismissible" role="alert">
+          {{ stockSymbol }} sold successfully.
+          <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+      </div>
+
+      <h1 class="my-3">My Portfolio</h1>
+
+      <div *ngIf="progressSpinnerFlag; else dataFetched" class="h-100 d-flex align-items-center justify-content-center">
+        <mat-progress-spinner mode="indeterminate"></mat-progress-spinner>
+      </div>
+
+      <ng-template #dataFetched>
+        <h4>Money in Wallet: ${{walletBalance.toFixed(2)}}</h4>
+
+        <div *ngIf="portfolioAlert" class="alert alert-warning text-center" role="alert">
+          Currently you don't have any stock in your portfolio.
+        </div>
+
+        <section>
+          <app-portfolio-card *ngFor="let portfolioStock of portfolioStocks" [portfolioStock]="portfolioStock" [refreshPortfolioFunc]="refreshPortfolioFunc" (successTransaction)="onSuccessTransaction($event)"></app-portfolio-card>
+        </section>
+      </ng-template>
+      <!-- <h3>Money in Wallet: ${{walletBalance}}</h3>
+
+      <div *ngIf="portfolioAlert" class="alert alert-warning text-center" role="alert">
+        Currently you don't have any stock in your portfolio.
+      </div>
+
+      <section>
+        <app-portfolio-card *ngFor="let portfolioStock of portfolioStocks" [portfolioStock]="portfolioStock" [refreshPortfolioFunc]="refreshPortfolioFunc"></app-portfolio-card>
+      </section> -->
+  </div>
+</div>

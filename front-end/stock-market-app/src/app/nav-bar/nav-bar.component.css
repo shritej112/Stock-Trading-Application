@@ -1,0 +1,12 @@
+.navbar-nav .nav-link {
+    color: rgb(211, 211, 211);
+}
+
+.navbar-nav .nav-item.activeC {
+    border: 1px solid white;
+    border-radius: 10px; /* Adjust border-radius as needed */
+}
+
+.navbar-nav .nav-item :hover {
+    color: white
+}

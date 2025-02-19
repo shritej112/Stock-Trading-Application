@@ -1,0 +1,20 @@
+
+<nav class="navbar navbar-expand-lg navbar-dark" style="background-color: #0c33b2;">
+  <a class="navbar-brand ms-5" href="/">Stock Search</a>
+  <button class="navbar-toggler" style="margin-right: 20px;" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+  <div class="collapse navbar-collapse" id="navbarNav">
+    <ul class="navbar-nav ms-auto ps-5 pe-5">
+      <li class="nav-item" [ngClass]="{ 'activeC': activeTab === 'search' ? true : false }">
+        <a class="nav-link" (click)="redirectSearch(); setActiveTab('search')" style="cursor: pointer;">Search</a>
+      </li>
+      <li class="nav-item" [ngClass]="{ 'activeC': activeTab === 'watchlist' ? true : false }">
+        <a class="nav-link" routerLink="/watchlist" (click)="setActiveTab('watchlist')">Watchlist</a>
+      </li>
+      <li class="nav-item" [ngClass]="{ 'activeC': activeTab === 'portfolio' ? true : false }">
+        <a class="nav-link" routerLink="/portfolio" (click)="setActiveTab('portfolio')">Portfolio</a>
+      </li>
+    </ul>
+  </div>
+</nav>

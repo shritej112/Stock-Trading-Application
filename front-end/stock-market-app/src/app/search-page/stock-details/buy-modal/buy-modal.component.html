@@ -1,0 +1,49 @@
+<mat-dialog-content class="container-fluid">
+  <div class="row">
+    <div class="col-12 d-flex justify-content-between align-items-center">
+      <h2 class="modal-title">{{ buyStockData.stockTicker }}</h2>
+      <button mat-button [mat-dialog-close]="true" class="close-button">
+        <span aria-hidden="true" class="close-icon"></span>
+      </button>
+    </div>
+  </div>
+
+  <hr class="bg-secondary">
+
+  <div class="modal-body">
+    <div class="row">
+      <div class="col-12">
+        <p>Current Price: <strong>{{ buyStockData.currentPrice.toFixed(2) }}</strong></p>
+        <p>Money in Wallet: <strong>{{ walletBalance.toFixed(2) }}</strong></p>
+        <div class="d-inline-flex">
+          <label>Quantity: </label>
+          <input class="ms-3" matInput type="number" min="0" [(ngModel)]="quantity" placeholder="0">
+        </div>
+        <p *ngIf="buyFlag && quantity * buyStockData.currentPrice > walletBalance" class="text-danger text-center">
+          Not enough money in wallet
+        </p>
+        <p *ngIf="!buyFlag && quantity > existingQuantity" class="text-danger text-center">
+          You cannot sell the stocks you don't have
+        </p>
+      </div>
+    </div>
+  </div>
+
+  <hr class="bg-secondary">
+
+  <div class="row">
+    <div class="col-8">
+      <p class="mb-0">Total: {{ quantity ? (quantity * buyStockData.currentPrice) : '0.00'}}</p>
+    </div>
+    <div class="col-4 d-flex justify-content-end">
+        <div *ngIf="buyFlag; else sell">
+          <button type="button" class="btn btn-success" (click)="buyStock()" [disabled]="quantity * buyStockData.currentPrice > walletBalance || quantity === 0">Buy</button>
+        </div>
+        <ng-template #sell>
+          <div>
+            <button type="button" class="btn btn-success" (click)="sellStock()" [disabled]="quantity <= 0 || quantity > existingQuantity">Sell</button>
+          </div>
+        </ng-template>
+    </div>
+  </div>
+</mat-dialog-content>
